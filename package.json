@@ -1,0 +1,19 @@
+{
+  "name": "bisaya-bible-api",
+  "version": "1.0.0",
+  "description": "A searchable REST API for the Cebuano/Bisaya Biblica Open Ang Pulong sa Dios Bible.",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "build-data": "node scripts/build-data.js",
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "express": "^4.21.2"
+  }
+}
