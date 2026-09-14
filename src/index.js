@@ -6,6 +6,13 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = path.join(__dirname, "..", "data", "bible.json");
 const PORT = Number(process.env.PORT || 3000);
+const allowedOrigins = new Set([
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:5173",
+  "https://bibliatica.onrender.com"
+]);
 
 const fallback = {
   translation: "Biblica Open Ang Pulong sa Dios",
@@ -25,6 +32,17 @@ function loadBible() {
 const bible = loadBible();
 const app = express();
 app.disable("x-powered-by");
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && allowedOrigins.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
 app.use(express.json());
 
 const normalize = (value = "") => String(value).trim().toLowerCase();
