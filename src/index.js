@@ -8,6 +8,7 @@ const DATA_FILE = path.join(__dirname, "..", "data", "bible.json");
 const PORT = Number(process.env.PORT || 3000);
 const allowedOrigins = new Set([
   "http://localhost:3000",
+  "http://localhost:2435", 
   "http://localhost:5173",
   "http://127.0.0.1:3000",
   "http://127.0.0.1:5173",
